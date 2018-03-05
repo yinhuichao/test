@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>高德点聚合Demo</title>
+    <base href="/">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <script src="http://webapi.amap.com/maps?v=1.4.3&key=bd6e3bead5f8eb2425d251f4cbc8cab2&plugin=AMap.Autocomplete,AMap.PlaceSearch,AMap.Geocoder,AMap.MarkerClusterer,AMap.MouseTool,AMap.Driving"></script>
+    <script src="point.js"></script>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+        #container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .showContent{
+            position: absolute;
+            top:20px;
+            right: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">        
+    </div>
+    <div class="showContent">        
+    </div>
+    <script>
+        var cluster, markers = [];
+        var map = new AMap.Map("container", {
+            resizeEnable: true,
+            center:[105,34],
+            zoom: 4
+        });
+        var pointList=points.concat(points).concat(points).concat(points).concat(points);
+        // var pointList=points;
+        var count  = pointList.length;
+        for(var i=0;i<count;i+=1){
+            markers.push(new AMap.Marker({
+              position:pointList[i]['lnglat']
+            }))
+        }
+
+        
+        document.getElementsByClassName("showContent")[0].innerHTML="共有" + count +"个点";
+
+        // 调用点聚合方法
+        addCluster();
+
+        function addCluster() {
+        cluster = new AMap.MarkerClusterer(map, markers,{gridSize:80});
+        }
+    </script>
+</body>
